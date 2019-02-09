@@ -1,0 +1,43 @@
+start      :== expression {{start}}
+
+expression  :==  NUMBER                                  {{const_exp}}
+            | ID                                        {{var_exp}}
+            | "let" ID "=" expression "in" expression       {{let_exp}}
+            | "zero?" "(" expression ")"                   {{zero_exp}}
+            | "if" expression "then" expression "else" expression {{if_exp}}
+            | "-" "(" expression "," expression ")"               {{diff_exp}}
+            | "proc" "(" ID ")" expression                        {{proc_exp}}
+            | "(" expression expression ")"                       {{call_exp}}
+
+
+
+----------
+
+from src._astree_p import *
+
+def start(exp):
+    return exp
+
+def const_exp(number):
+    return const_node(number)
+
+def var_exp(token):
+    return var_node(token)
+
+def let_exp(let, var, equal, exp1, _in, exp2):
+    return let_node(var, exp1, exp2)
+
+def zero_exp(zero, lpar, exp1, rpar):
+    return zero_node(exp1)
+
+def if_exp(i, exp1, t, exp2, e, exp3):
+    return if_node(exp1, exp2, exp3)
+
+def diff_exp(sub, lpar, exp1, comma, exp2, rpar):
+    return diff_node(exp1, exp2)
+
+def proc_exp(proc, lpar, var, rpar, exp1):
+    return proc_node(var, exp1)
+
+def call_exp(lpar, exp1, exp2, rpar):
+    return call_node(exp1, exp2)

@@ -1,0 +1,6 @@
+NUMBER      :=  r'\d+(\.\d*)?'    # numbers
+ID          :=  r'[A-Za-z_][-A-Za-z0-9_?]*'
+SIGN        :=  r'[^\s\d]'
+NEWLINE     :=  r'\n'
+SKIP        :=  r'[ \t]+'
+MISMATCH    :=  r'.'
