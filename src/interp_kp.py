@@ -20,7 +20,6 @@ def init_env():
 
 
 def apply_env(variable, env):
-    print(env)
     for var, val in env:
         if var == variable:
             return val
@@ -81,48 +80,33 @@ def apply_cont(cont, val):
 
 
 def end_cont():
-    def _apply_cont(val):
-        return val
-    return _apply_cont
+    return lambda val: val
 
 
 def zero1_cont(saved_cont):
-    def _apply_cont(val):
-        return apply_cont(saved_cont, BoolVal(val.number==0))
-    return _apply_cont
+    return lambda val: apply_cont(saved_cont, BoolVal(val.number==0))
 
 
 def let_cont(var, body, env, saved_cont):
-    def _apply_cont(val):
-        return Eval._evalk(body, extend_env(var, val, env), saved_cont)
-    return _apply_cont
+    return lambda val: Eval._evalk(body, extend_env(var, val, env), saved_cont)
 
 
 def if_cont(exp2, exp3, env, saved_cont):
-    def _apply_cont(val):
-        return Eval._evalk(exp2 if bool(val.bool) else exp3, env, saved_cont)
-    return _apply_cont
+    return lambda val: Eval._evalk(exp2 if bool(val.bool) else exp3,
+                                   env, saved_cont)
 
 
 def diff1_cont(exp2, env, saved_cont):
-    def _apply_cont(val):
-        return Eval._evalk(exp2, env, diff2_cont(val, saved_cont))
-    return _apply_cont
+    return lambda val: Eval._evalk(exp2, env, diff2_cont(val, saved_cont))
 
 
 def diff2_cont(val1, saved_cont):
-    def _apply_cont(val):
-        return apply_cont(saved_cont, NumVal(val1.number - val.number))
-    return _apply_cont
+    return lambda val: apply_cont(saved_cont, NumVal(val1.number - val.number))
 
 
 def rator_cont(rand, env, saved_cont):
-    def _apply_cont(val):
-        return Eval._evalk(rand, env, rand_cont(val, saved_cont))
-    return _apply_cont
+    return lambda val: Eval._evalk(rand, env, rand_cont(val, saved_cont))
 
 
 def rand_cont(val1, saved_cont):
-    def _apply_cont(val):
-        return apply_procedurek(val1, val, saved_cont)
-    return _apply_cont
+    return lambda val: apply_procedurek(val1, val, saved_cont)

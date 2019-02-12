@@ -1,6 +1,6 @@
-from src._parser_k import Parser
+from src._parser_kpl import Parser
 from src.expval import *
-from src._astree_p import *
+from src._astree_kpl import *
 parser = Parser()
 
 def init_env():

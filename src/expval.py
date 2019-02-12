@@ -29,3 +29,6 @@ class ProcVal(ExpVal):
     def __str__(self):
         return f"({self.var}) {str(self.body)} | {str(self.env)}"
 
+
+def expval2num(expval):
+    return expval.number

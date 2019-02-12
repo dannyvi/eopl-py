@@ -13,19 +13,19 @@ expression  :==  NUMBER                                  {{const_exp}}
 
 ----------
 
-from src._astree import *
+from src._astree_named import *
 
 def start(exp):
     return exp
 
-def const_exp(number):
-    return ConstExp(number)
+def const_exp(token):
+    return ConstExp(int(token.val))
 
 def var_exp(token):
-    return VarExp(token)
+    return VarExp(token.val)
 
 def let_exp(let, var, equal, exp1, _in, exp2):
-    return LetExp(var, exp1, exp2)
+    return LetExp(var.val, exp1, exp2)
 
 def zero_exp(zero, lpar, exp1, rpar):
     return ZeroExp(exp1)
@@ -37,7 +37,7 @@ def diff_exp(sub, lpar, exp1, comma, exp2, rpar):
     return DiffExp(exp1, exp2)
 
 def proc_exp(proc, lpar, var, rpar, exp1):
-    return ProcExp(var, exp1)
+    return ProcExp(var.val, exp1)
 
 def call_exp(lpar, exp1, exp2, rpar):
     return CallExp(exp1, exp2)

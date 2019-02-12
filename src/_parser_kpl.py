@@ -1,7 +1,7 @@
 from src.lexer import Lexer
 from src.parse.sdt import SDT
 
-gram_filename = "src/ak.grammar"
+gram_filename = "src/akpl.grammar"
 lex_filename = "src/a.lexeme"
 
 
